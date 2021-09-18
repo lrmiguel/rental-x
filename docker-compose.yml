@@ -1,12 +1,30 @@
 version: "3.7"
 
 services:
+  db:
+    image: postgres
+    container_name: db_postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment: 
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=ignite
+      - POSTGRES_DB=rentx
+    volumes:
+      - .db/data:/data/postgres
+    networks:
+      - rentx-net
   app:
     build: .
     container_name: rentx
     ports:
       - 3333:3333
+      - 9229:9229
     volumes:
       - .:/usr/app
-    
-    
+    networks:
+      - rentx-net
+networks:
+  rentx-net:
+    driver: bridge
