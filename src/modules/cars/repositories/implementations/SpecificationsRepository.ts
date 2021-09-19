@@ -1,3 +1,6 @@
+import { injectable } from "tsyringe";
+import { getRepository, Repository } from "typeorm";
+
 import { Category } from "../../entities/Category";
 import { Specification } from "../../entities/Specification";
 import {
@@ -5,35 +8,29 @@ import {
   ISpecificationsRepository,
 } from "../ISpecificationsRepository";
 
+@injectable()
 class SpecificationsRepository implements ISpecificationsRepository {
-  private specifications: Specification[];
-  private static INSTANCE: SpecificationsRepository;
+  private repository: Repository<Specification>;
 
-  private constructor() {
-    this.specifications = [];
+  constructor() {
+    this.repository = getRepository(Specification);
   }
 
-  static getInstance(): SpecificationsRepository {
-    if (!SpecificationsRepository.INSTANCE) {
-      SpecificationsRepository.INSTANCE = new SpecificationsRepository();
-    }
-    return SpecificationsRepository.INSTANCE;
+  async findByName(name: string): Promise<Category> {
+    return this.repository.findOne({ name });
   }
 
-  findByName(name: string): Category {
-    return this.specifications.find((s) => s.name === name);
+  async list(): Promise<Category[]> {
+    return this.repository.find();
   }
-  list(): Category[] {
-    throw new Error("Method not implemented.");
-  }
-  create({ name, description }: ICreateSpecificationDTO): void {
-    const specification = new Specification();
 
-    Object.assign(specification, {
+  async create({ name, description }: ICreateSpecificationDTO): Promise<void> {
+    const specification = this.repository.create({
       name,
       description,
       created_at: new Date(),
     });
+    await this.repository.save(specification);
   }
 }
 
