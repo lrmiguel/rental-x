@@ -2,9 +2,9 @@ import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 import { container } from "tsyringe";
 
-import { AppError } from "@errors/AppError";
-import { UsersRepository } from "@modules/accounts/repositories/implementations/UsersPostgresRepository";
+import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersPostgresRepository";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
+import { AppError } from "@shared/errors/AppError";
 
 interface IPayload {
   sub: string;
