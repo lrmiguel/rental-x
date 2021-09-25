@@ -1,13 +1,12 @@
 import { injectable } from "tsyringe";
 import { getRepository, Repository } from "typeorm";
 
+import { Category } from "@modules/cars/entities/Category";
+import { Specification } from "@modules/cars/entities/Specification";
 import {
   ISpecificationsRepository,
   ICreateSpecificationDTO,
 } from "@modules/cars/repositories/ISpecificationsRepository";
-
-import { Category } from "../Category";
-import { Specification } from "../Specification";
 
 @injectable()
 class SpecificationsRepository implements ISpecificationsRepository {

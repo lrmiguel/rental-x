@@ -1,11 +1,11 @@
 import { container } from "tsyringe";
 
-import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersPostgresRepository";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
-import { CategoriesRepository } from "@modules/cars/infra/typeorm/repositories/CategoriesPostgresRepository";
-import { SpecificationsRepository } from "@modules/cars/infra/typeorm/repositories/SpecificationsRepository";
 import { ICategoriesRepository } from "@modules/cars/repositories/ICategoriesRepository";
 import { ISpecificationsRepository } from "@modules/cars/repositories/ISpecificationsRepository";
+import { CategoriesRepository } from "@shared/infra/typeorm/repositories/CategoriesPostgresRepository";
+import { SpecificationsRepository } from "@shared/infra/typeorm/repositories/SpecificationsRepository";
+import { UsersRepository } from "@shared/infra/typeorm/repositories/UsersPostgresRepository";
 
 container.registerSingleton<ICategoriesRepository>(
   "CategoriesRepository",
